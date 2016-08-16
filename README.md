@@ -1,5 +1,4 @@
 # Arcade game Frogger clone
-
 ===========================
 
 How To Begin:
