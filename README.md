@@ -1,5 +1,5 @@
 # Arcade game Frogger clone
----------------------------
+
 
 How To Begin:
 To start playing the game, open the index.html file in any modern browser.
