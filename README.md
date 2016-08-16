@@ -13,6 +13,7 @@ your keyboard's arrow keys. Move the player to the top of the canvas to
 complete a level.
 
 More Info:
+
 You can pause the game at any time by pressing p. To resume, press p again.
 To restart the game when dead, press Enter.
 
