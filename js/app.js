@@ -1,10 +1,10 @@
 // Enemies our player must avoid
 var Enemy = function() {
-    this.x = -101;              // required for smooth enter into the screen
+    this.x = -101; // required for smooth enter into the screen
     this.rowGenerator();
     this.temporarySpeed = 400;
-    this.speed = 0;             // moves at (width * dt) pace on axis x
-    this.hasStepped = false;    // true if enemy has stepped on object
+    this.speed = 0; // moves at (width * dt) pace on axis x
+    this.hasStepped = false; // true if enemy has stepped on object
     // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
 };
@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
         if (player.level >= 3) {
             this.x += this.temporarySpeed * dt;
         } else
-        this.x += this.speed * dt;
+            this.x += this.speed * dt;
     }
     // check if player has collided with any of the enemies or rocks
     player.checkCollision(allEnemies);
@@ -60,23 +60,23 @@ Enemy.prototype.rowGenerator = function() {
     var randomRow = getRandomRow();
     switch (randomRow) {
         case 1:
-        this.y = 63;
-        break;
+            this.y = 63;
+            break;
         case 2:
-        this.y = 146;
-        break;
+            this.y = 146;
+            break;
         case 3:
-        this.y = 229;
-        break;
+            this.y = 229;
+            break;
         case 4:
-        this.y = 312;
-        break;
+            this.y = 312;
+            break;
     }
 };
 // check if enemy has stepped on object
 Enemy.prototype.checkCollision = function(arrayOfObjects) {
     arrayOfObjects.forEach(function(object) {
-        if (this.x < object.x + 50 && this.x + 50 > object.x && this.y < object.y + 30 && 30 + this.y > object.y ) {
+        if (this.x < object.x + 50 && this.x + 50 > object.x && this.y < object.y + 30 && 30 + this.y > object.y) {
             // if enemy collided , move him up slowly
             if (this.speed > 700) this.y -= 3;
             this.y -= 0.5;
@@ -127,7 +127,7 @@ Player.prototype.handleInput = function(keyCode) {
                 this.x -= 101;
             }
             break;
-            case 'up':
+        case 'up':
             this.checkForRock('y', 83);
             if (this.canMove === false) {
                 this.canMove = true;
@@ -145,7 +145,7 @@ Player.prototype.handleInput = function(keyCode) {
                     player.lives++;
             }
             break;
-            case 'right':
+        case 'right':
             this.checkForRock('x', -101);
             if (this.canMove === false) {
                 this.canMove = true;
@@ -155,7 +155,7 @@ Player.prototype.handleInput = function(keyCode) {
             if (this.x < 505)
                 this.x += 101;
             break;
-            case 'down':
+        case 'down':
             this.checkForRock('y', -83);
             if (this.canMove === false) {
                 this.canMove = true;
@@ -165,17 +165,17 @@ Player.prototype.handleInput = function(keyCode) {
             if (this.y < 400)
                 this.y += 83;
             break;
-        }
-    };
+    }
+};
 // Chech if collision between the player and enemies or rocks happened
 Player.prototype.checkCollision = function(arrayOfObjects) {
     arrayOfObjects.forEach(function(object) {
         if (this.x < object.x + 50 && this.x + 50 > object.x && this.y < object.y + 40 && 40 + this.y > object.y) {
-            if (arrayOfObjects.length > 0 && arrayOfObjects[0].constructor.name === 'Enemy')
+            if (arrayOfObjects.length > 0 && arrayOfObjects[0] instanceof Enemy)
                 player.reset();
             else
-                // if collision with object 'Rock' happened the player cannot move
-            this.canMove = false;
+            // if collision with object 'Rock' happened the player cannot move
+                this.canMove = false;
         }
     }, this);
 };
@@ -196,24 +196,24 @@ Player.prototype.checkForRock = function(axis, offset) {
 
 // Function to define levels
 Player.prototype.initializeLevel = function(allEnemies) {
+    var rock;
     if (this.level === 1) {
         minSpeed = 100;
         maxSpeed = 500;
         allRocks = [];
-
         var enemy = new Enemy();
         enemy.setRandomSpeed(minSpeed, maxSpeed);
         allEnemies[0] = enemy;
 
-        var enemy = new Enemy();
+        enemy = new Enemy();
         enemy.setRandomSpeed(minSpeed, maxSpeed);
         allEnemies[1] = enemy;
 
-        var enemy = new Enemy();
+        enemy = new Enemy();
         enemy.setRandomSpeed(minSpeed, maxSpeed);
         allEnemies[2] = enemy;
 
-        var enemy = new Enemy();
+        enemy = new Enemy();
         enemy.setRandomSpeed(minSpeed, maxSpeed);
         allEnemies[3] = enemy;
         // leave always 4 enemies when game restarts
@@ -221,8 +221,8 @@ Player.prototype.initializeLevel = function(allEnemies) {
             allEnemies.pop();
     }
     if (this.level === 2) {
-        minSpeed +=100;
-        maxSpeed +=100;
+        minSpeed += 100;
+        maxSpeed += 100;
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
         });
@@ -231,109 +231,109 @@ Player.prototype.initializeLevel = function(allEnemies) {
         // window.allRocks = []; -> we could initialize allRocks in global scope only from 3rd level
         // Create rock objects
         // x = 202 is collum 2 , y = 312 is row 5
-        var rock = new Rock(202 + 101, 312);
+        rock = new Rock(202 + 101, 312);
         allRocks[0] = rock;
 
-        var rock = new Rock(202 +101 * 2, 312);
+        rock = new Rock(202 + 101 * 2, 312);
         allRocks[1] = rock;
 
-        var rock = new Rock(202 + 101 * 3, 312 - 83 *2);
+        rock = new Rock(202 + 101 * 3, 312 - 83 * 2);
         allRocks[2] = rock;
 
-        var rock = new Rock(202 , 312 - 83 * 2);
+        rock = new Rock(202, 312 - 83 * 2);
         allRocks[3] = rock;
 
-        var rock = new Rock(202 + 101, 312 - 83 * 3);
+        rock = new Rock(202 + 101, 312 - 83 * 3);
         allRocks[4] = rock;
 
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
     if (this.level === 4) {
-        minSpeed +=100;
-        maxSpeed +=100;
+        minSpeed += 100;
+        maxSpeed += 100;
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
     if (this.level === 5) {
         allRocks = [];
-        var rock = new Rock(202 - 101, 312 -83);
+        rock = new Rock(202 - 101, 312 - 83);
         allRocks[0] = rock;
 
-        var rock = new Rock(202 , 312 - 83 *2);
+        rock = new Rock(202, 312 - 83 * 2);
         allRocks[1] = rock;
 
-        var rock = new Rock(202 + 101, 312 - 83 *2);
+        rock = new Rock(202 + 101, 312 - 83 * 2);
         allRocks[2] = rock;
 
-        var rock = new Rock(202 + 101 *2, 312 -83);
+        rock = new Rock(202 + 101 * 2, 312 - 83);
         allRocks[3] = rock;
 
-        var rock = new Rock(202 + 101 *3, 312 -83 *3);
+        rock = new Rock(202 + 101 * 3, 312 - 83 * 3);
         allRocks[4] = rock;
 
-        minSpeed +=100;
-        maxSpeed +=100;
+        minSpeed += 100;
+        maxSpeed += 100;
 
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
 
     if (this.level === 6) {
-        minSpeed +=100;
-        maxSpeed +=100;
+        minSpeed += 100;
+        maxSpeed += 100;
 
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
 
     if (this.level === 7) {
         allRocks = [];
-        var rock = new Rock(202 + 101 , 312 -81 * 4);
+        rock = new Rock(202 + 101, 312 - 81 * 4);
         allRocks[0] = rock;
 
-        var rock = new Rock(202 + 101 *2,312 - 81 *4);
+        rock = new Rock(202 + 101 * 2, 312 - 81 * 4);
         allRocks[1] = rock;
 
-        var rock = new Rock(202 + 101 *3,312 - 81 *4);
+        rock = new Rock(202 + 101 * 3, 312 - 81 * 4);
         allRocks[2] = rock;
 
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
 
     if (this.level === 8) {
-        var rock = new Rock(202 - 101 , 312 -81 * 4);
+        rock = new Rock(202 - 101, 312 - 81 * 4);
         allRocks[0] = rock;
 
-        var rock = new Rock(202 - 101 *2,312 - 81 *4);
+        rock = new Rock(202 - 101 * 2, 312 - 81 * 4);
         allRocks[3] = rock;
 
-        var rock = new Rock(202 + 101 ,312 - 81 *4);
+        rock = new Rock(202 + 101, 312 - 81 * 4);
         allRocks[4] = rock;
 
 
         allEnemies.forEach(function(enemy) {
             enemy.setRandomSpeed(minSpeed, maxSpeed);
-        })
+        });
     }
 
     if (this.level > 8) {
         allRocks = [];
         if (this.speed !== 1300) {
-            minSpeed +=100;
-            maxSpeed +=100;
+            minSpeed += 100;
+            maxSpeed += 100;
             allEnemies.forEach(function(enemy) {
                 enemy.setRandomSpeed(minSpeed, maxSpeed);
-            })
+            });
         }
     }
-}
+};
 
 var Rock = function(x, y) {
     this.x = x;
@@ -357,21 +357,17 @@ enemyRowGenerator = function() {
     var randomRow = getRandomRow();
     switch (randomRow) {
         case 1:
-        var enemy = new Enemy(-101, 63);
-        return enemy;
-        break;
+            var enemy = new Enemy(-101, 63);
+            return enemy;
         case 2:
-        var enemy = new Enemy(-101, 146);
-        return enemy;
-        break;
+            enemy = new Enemy(-101, 146);
+            return enemy;
         case 3:
-        var enemy = new Enemy(-101, 229);
-        return enemy;
-        break;
+            enemy = new Enemy(-101, 229);
+            return enemy;
         case 4:
-        var enemy = new Enemy(-101, 312);
-        return enemy;
-        break;
+            enemy = new Enemy(-101, 312);
+            return enemy;
     }
 };
 
