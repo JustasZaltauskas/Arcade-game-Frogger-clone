@@ -1,3 +1,7 @@
+// constant variables
+var TILE_WIDTH = 101,
+    TILE_HEIGHT = 83;
+
 // Enemies our player must avoid
 var Enemy = function() {
     this.x = -101; // required for smooth enter into the screen
@@ -52,12 +56,14 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.setRandomSpeed = function(min, max) {
-    this.speed = getRandomInt(min, max);
+    // get random int from min to max
+    this.speed = Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // Creates an enemy object and puts it in the random row.
 Enemy.prototype.rowGenerator = function() {
-    var randomRow = getRandomRow();
+    // get random row from 1 to 4
+    var randomRow = Math.floor((Math.random() * 4) + 1);
     switch (randomRow) {
         case 1:
             this.y = 63;
@@ -117,53 +123,53 @@ Player.prototype.handleInput = function(keyCode) {
         case 'left':
             // Move left and check if we have a collision with rock
             // if collision happened move player back
-            this.checkForRock('x', 101);
+            this.checkForRock('x', TILE_WIDTH);
             if (this.canMove === false) {
                 this.canMove = true;
                 break;
             }
             // check if we don't move out of bounds
             if (this.x > 0) {
-                this.x -= 101;
+                this.x -= TILE_WIDTH;
             }
             break;
         case 'up':
-            this.checkForRock('y', 83);
+            this.checkForRock('y', TILE_HEIGHT);
             if (this.canMove === false) {
                 this.canMove = true;
                 break;
             }
             // check if player reached the water
             if (this.y > 68)
-                this.y -= 83;
+                this.y -= TILE_HEIGHT;
             else {
                 this.x = 202;
                 this.y = 400;
-                player.level++;
-                player.initializeLevel(allEnemies);
-                if (player.level % 5 === 0)
-                    player.lives++;
+                this.level++;
+                this.initializeLevel(allEnemies);
+                if (this.level % 5 === 0)
+                    this.lives++;
             }
             break;
         case 'right':
-            this.checkForRock('x', -101);
+            this.checkForRock('x', -TILE_WIDTH);
             if (this.canMove === false) {
                 this.canMove = true;
                 break;
             }
             // check if we don't move out of bounds
             if (this.x < 505)
-                this.x += 101;
+                this.x += TILE_WIDTH;
             break;
         case 'down':
-            this.checkForRock('y', -83);
+            this.checkForRock('y', -TILE_HEIGHT);
             if (this.canMove === false) {
                 this.canMove = true;
                 break;
             }
             // check if we don't move out of bounds
             if (this.y < 400)
-                this.y += 83;
+                this.y += TILE_HEIGHT;
             break;
     }
 };
@@ -172,7 +178,7 @@ Player.prototype.checkCollision = function(arrayOfObjects) {
     arrayOfObjects.forEach(function(object) {
         if (this.x < object.x + 50 && this.x + 50 > object.x && this.y < object.y + 40 && 40 + this.y > object.y) {
             if (arrayOfObjects.length > 0 && arrayOfObjects[0] instanceof Enemy)
-                player.reset();
+                this.reset();
             else
             // if collision with object 'Rock' happened the player cannot move
                 this.canMove = false;
@@ -231,19 +237,19 @@ Player.prototype.initializeLevel = function(allEnemies) {
         // window.allRocks = []; -> we could initialize allRocks in global scope only from 3rd level
         // Create rock objects
         // x = 202 is collum 2 , y = 312 is row 5
-        rock = new Rock(202 + 101, 312);
+        rock = new Rock(202 + TILE_WIDTH, 312);
         allRocks[0] = rock;
 
-        rock = new Rock(202 + 101 * 2, 312);
+        rock = new Rock(202 + TILE_WIDTH * 2, 312);
         allRocks[1] = rock;
 
-        rock = new Rock(202 + 101 * 3, 312 - 83 * 2);
+        rock = new Rock(202 + TILE_WIDTH * 3, 312 - TILE_HEIGHT * 2);
         allRocks[2] = rock;
 
-        rock = new Rock(202, 312 - 83 * 2);
+        rock = new Rock(202, 312 - TILE_HEIGHT * 2);
         allRocks[3] = rock;
 
-        rock = new Rock(202 + 101, 312 - 83 * 3);
+        rock = new Rock(202 + TILE_WIDTH, 312 - TILE_HEIGHT * 3);
         allRocks[4] = rock;
 
         allEnemies.forEach(function(enemy) {
@@ -259,19 +265,19 @@ Player.prototype.initializeLevel = function(allEnemies) {
     }
     if (this.level === 5) {
         allRocks = [];
-        rock = new Rock(202 - 101, 312 - 83);
+        rock = new Rock(202 - TILE_WIDTH, 312 - TILE_HEIGHT);
         allRocks[0] = rock;
 
-        rock = new Rock(202, 312 - 83 * 2);
+        rock = new Rock(202, 312 - TILE_HEIGHT * 2);
         allRocks[1] = rock;
 
-        rock = new Rock(202 + 101, 312 - 83 * 2);
+        rock = new Rock(202 + TILE_WIDTH, 312 - TILE_HEIGHT * 2);
         allRocks[2] = rock;
 
-        rock = new Rock(202 + 101 * 2, 312 - 83);
+        rock = new Rock(202 + TILE_WIDTH * 2, 312 - TILE_HEIGHT);
         allRocks[3] = rock;
 
-        rock = new Rock(202 + 101 * 3, 312 - 83 * 3);
+        rock = new Rock(202 + TILE_WIDTH * 3, 312 - TILE_HEIGHT * 3);
         allRocks[4] = rock;
 
         minSpeed += 100;
@@ -293,13 +299,14 @@ Player.prototype.initializeLevel = function(allEnemies) {
 
     if (this.level === 7) {
         allRocks = [];
-        rock = new Rock(202 + 101, 312 - 81 * 4);
+        // less than 83 so the rock would move out of canvas
+        rock = new Rock(202 + TILE_WIDTH, 312 - 81 * 4);
         allRocks[0] = rock;
 
-        rock = new Rock(202 + 101 * 2, 312 - 81 * 4);
+        rock = new Rock(202 + TILE_WIDTH * 2, 312 - 81 * 4);
         allRocks[1] = rock;
 
-        rock = new Rock(202 + 101 * 3, 312 - 81 * 4);
+        rock = new Rock(202 + TILE_WIDTH * 3, 312 - 81 * 4);
         allRocks[2] = rock;
 
         allEnemies.forEach(function(enemy) {
@@ -308,13 +315,13 @@ Player.prototype.initializeLevel = function(allEnemies) {
     }
 
     if (this.level === 8) {
-        rock = new Rock(202 - 101, 312 - 81 * 4);
+        rock = new Rock(202 - TILE_WIDTH, 312 - 81 * 4);
         allRocks[0] = rock;
 
-        rock = new Rock(202 - 101 * 2, 312 - 81 * 4);
+        rock = new Rock(202 - TILE_WIDTH * 2, 312 - 81 * 4);
         allRocks[3] = rock;
 
-        rock = new Rock(202 + 101, 312 - 81 * 4);
+        rock = new Rock(202 + TILE_WIDTH, 312 - 81 * 4);
         allRocks[4] = rock;
 
 
@@ -344,36 +351,6 @@ var Rock = function(x, y) {
 Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-// Get random row from 1 to 4
-getRandomRow = function() {
-    return Math.floor((Math.random() * 4) + 1);
-};
-
-// NOT USED ANYMORE!!!!!  CHANGED TO --> Enemy.prototype.rowGenerator
-// which works the same way but is binded to the enemy object
-// Creates an enemy object and puts it in the random row .
-enemyRowGenerator = function() {
-    var randomRow = getRandomRow();
-    switch (randomRow) {
-        case 1:
-            var enemy = new Enemy(-101, 63);
-            return enemy;
-        case 2:
-            enemy = new Enemy(-101, 146);
-            return enemy;
-        case 3:
-            enemy = new Enemy(-101, 229);
-            return enemy;
-        case 4:
-            enemy = new Enemy(-101, 312);
-            return enemy;
-    }
-};
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 // Instantiation of player enemy and rock objects
 var allEnemies = [];
