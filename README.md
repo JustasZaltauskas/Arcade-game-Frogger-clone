@@ -1,19 +1,20 @@
 # Arcade game Frogger clone
+Project 5 from Udacity Front-end Web Developer Nanodegree.
 
-How To Begin:
-To start playing the game, open the index.html file in any modern browser.
 
-How To Play:
+## [Click here to play!](https://justaszaltauskas.github.io/Neighborhood-map/)  
 
-This is a game with infinite levels that get progressively more difficult.
-At every level enemies move faster. You control the player's movement with
-your keyboard's arrow keys. Move the player to the top of the canvas to
+
+### How To Play:
+
+> This is a game with infinite levels that get progressively more difficult.
+At every level enemies move faster. You can control the player's movement with
+keyboard arrow keys. Move the player to the top of the board to
 complete a level.
 
-More Info:
+<img src='http://gdurl.com/HlIK' width="600" height="300" />
 
-You can pause the game at any time by pressing p. To resume, press p again.
-To restart the game when dead, press Enter.
+
 
 Good luck!
 
