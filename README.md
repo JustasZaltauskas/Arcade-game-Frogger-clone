@@ -2,7 +2,7 @@
 Project 5 from Udacity Front-end Web Developer Nanodegree.
 
 
-## [Click here to play!](https://justaszaltauskas.github.io/Neighborhood-map/)  
+## [Click here to play!](https://justaszaltauskas.github.io/Arcade-game-Frogger-clone/)  
 
 
 ### How To Play:
