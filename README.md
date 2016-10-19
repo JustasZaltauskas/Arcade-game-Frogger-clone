@@ -1,5 +1,5 @@
 # Arcade game Frogger clone
-Project 5 from Udacity Front-end Web Developer Nanodegree.
+Project 3 from Udacity Front-end Web Developer Nanodegree.
 
 
 ## [Click here to play!](https://justaszaltauskas.github.io/Arcade-game-Frogger-clone/)  
@@ -13,8 +13,6 @@ keyboard arrow keys. Move the player to the top of the board to
 complete a level.
 
 <img src='http://gdurl.com/HlIK' width="600" height="300" />
-
-
 
 Good luck!
 
