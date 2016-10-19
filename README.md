@@ -5,7 +5,7 @@ Project 3 from Udacity Front-end Web Developer Nanodegree.
 ## [Click here to play!](https://justaszaltauskas.github.io/Arcade-game-Frogger-clone/)  
 
 
-### How To Play:
+### About:
 
 > This is a game with infinite levels that get progressively more difficult.
 At every level enemies move faster. You can control the player's movement with
